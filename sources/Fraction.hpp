@@ -15,59 +15,59 @@ public:
     //Default
     explicit Fraction();
     //Parameterized
-    explicit Fraction(int n,int d);
+    explicit Fraction(int num,int den);
     //Copy
     explicit Fraction(Fraction& other);
 
 // Getter and Setter
-    int Get_Num(){ return this->numerator;}
-    int Get_Den(){ return this->denominator;}
+    int Get_Num() const{ return this->numerator;}
+    int Get_Den() const{ return this->denominator;}
     void Set_Num(int n){ this->numerator = n;}
     void Set_Den(int n){ this->denominator = n;}
 
 //Overloading of Operators
     // operator : [+] f1+f2 / f1+number / number+f1
-    const Fraction operator+(const Fraction f2) const;
+    const Fraction operator+(const Fraction fon2) const;
     const Fraction operator+(const int number) const;
-    friend const Fraction operator+(const double num,const Fraction f2);
+    friend const Fraction operator+(const double num,const Fraction fon);
 
     // operator : [-] f1-f2 / f1-number / number-f1
-    const Fraction operator-(const Fraction f2) const;
+    const Fraction operator-(const Fraction fon2) const;
     const Fraction operator-(const int number) const;
-    friend const Fraction operator-(const double num,const Fraction f2);
+    friend const Fraction operator-(const double num,const Fraction fon);
 
     // operator : [*] f1*f2 / f1*number / number*f1
-    const Fraction operator*(const Fraction f2) const;
+    const Fraction operator*(const Fraction fon2) const;
     const Fraction operator*(const int number) const;
-    friend const Fraction operator*(const double num,const Fraction f2);
+    friend const Fraction operator*(const double num,const Fraction fon);
 
     // operator : [/] f1/f2 ; f1/number ; number/f1
-    const Fraction operator/(const Fraction f2) const;
+    const Fraction operator/(const Fraction fon2) const;
     const Fraction operator/(const int number) const;
-    friend const Fraction operator/(const double num,const Fraction f2);
+    friend const Fraction operator/(const double num,const Fraction fon);
 
     // operator : [==]  f1==f2
-    friend bool operator==(const Fraction& f1, const Fraction& f2);
+    friend bool operator==(const Fraction& fon1, const Fraction& fon2);
 
     // operator : [>] f1 > f2 / f1 > number / number > f1
-    const bool operator>(const Fraction f2) const;
+    const bool operator>(const Fraction fon2) const;
     const bool operator>(const int number) const;
-    friend const bool operator>(const double num,const Fraction f2);
+    friend const bool operator>(const double num,const Fraction fon1);
 
     // operator : [>=] f1 >= f2 / f1 >= number / number >= f1
-    const bool operator>=(const Fraction f2) const;
+    const bool operator>=(const Fraction fon2) const;
     const bool operator>=(const int number) const;
-    friend const bool operator>=(const double num,const Fraction f2);
+    friend const bool operator>=(const double num,const Fraction fon1);
 
     // operator : [<] f1 < f2 / f1 < number / number < f1
-    const bool operator<(Fraction f2) const;
+    const bool operator<(Fraction fon2) const;
     const bool operator<(int number) const;
-    friend const bool operator<(const double num,const Fraction f2);    
+    friend const bool operator<(const double num,const Fraction fon1);    
 
     // operator : [<=] f1 <= f2 / f1 <= number / number <= f1
-    const bool operator<=(const Fraction f2) const;
+    const bool operator<=(const Fraction fon2) const;
     const bool operator<=(const int number) const;
-    friend const bool operator<=(const double num,const Fraction f2);
+    friend const bool operator<=(const double num,const Fraction fon1);
 
     // operator : ++ 
         // prefix
@@ -83,9 +83,9 @@ public:
 
     // IO operator : friend methods
         // <<
-    friend ostream& operator<<(ostream& output,const Fraction& f);
+    friend ostream& operator<<(ostream& output,const Fraction& fonc);
         // >>
-    friend ostream& operator>>(istream& input, Fraction& f);
+    friend ostream& operator>>(istream& input, Fraction& fonc);
 
 
 };
