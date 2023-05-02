@@ -1,5 +1,10 @@
 #pragma once
 #include <iostream>
+#include <stdexcept>
+#include <string>
+#include <cmath>
+#include <sstream>
+#include <fstream>
 using namespace std;
 
 namespace ariel {
@@ -13,11 +18,23 @@ private:
 public:
 // Constructor
     //Default
-    explicit Fraction();
+    Fraction();
     //Parameterized
-    explicit Fraction(int num,int den);
+    Fraction(int num,int den);
     //Copy
-    explicit Fraction(Fraction& other);
+    Fraction(const Fraction& other);
+    // Move Constructor
+    Fraction(Fraction&& other) noexcept;
+
+// Destructor 
+    ~Fraction();
+
+// Function to convert a float to the fraction : 0.333 = 1/3
+    friend Fraction ConvertFloat(float num);
+
+// Function to change the function to the min form : exemple : 2/6 = 1/3
+    void Min_Form(int& num, int& den);
+    int pgcd(int varA,int varB);    
 
 // Getter and Setter
     int Get_Num() const{ return this->numerator;}
@@ -27,47 +44,53 @@ public:
 
 //Overloading of Operators
     // operator : [+] f1+f2 / f1+number / number+f1
-    const Fraction operator+(const Fraction fon2) const;
-    const Fraction operator+(const int number) const;
-    friend const Fraction operator+(const double num,const Fraction fon);
+    const Fraction operator+(const Fraction& fon2) const;
+    const Fraction operator+(const float& number);
+    friend const Fraction operator+(const float& num,const Fraction& fon);
 
     // operator : [-] f1-f2 / f1-number / number-f1
-    const Fraction operator-(const Fraction fon2) const;
-    const Fraction operator-(const int number) const;
-    friend const Fraction operator-(const double num,const Fraction fon);
+    const Fraction operator-(const Fraction& fon2) const;
+    const Fraction operator-(const float& number) const;
+    friend const Fraction operator-(const float& num,const Fraction& fon);
 
     // operator : [*] f1*f2 / f1*number / number*f1
-    const Fraction operator*(const Fraction fon2) const;
-    const Fraction operator*(const int number) const;
-    friend const Fraction operator*(const double num,const Fraction fon);
+    const Fraction operator*(const Fraction& fon2) const;
+    const Fraction operator*(const float& number);
+    friend const Fraction operator*(const float& num,const Fraction& fon);
 
     // operator : [/] f1/f2 ; f1/number ; number/f1
-    const Fraction operator/(const Fraction fon2) const;
-    const Fraction operator/(const int number) const;
-    friend const Fraction operator/(const double num,const Fraction fon);
+    const Fraction operator/(const Fraction& fon2) const;
+    const Fraction operator/(const float& number) const;
+    friend const Fraction operator/(const float& num,const Fraction& fon);
 
     // operator : [==]  f1==f2
-    friend bool operator==(const Fraction& fon1, const Fraction& fon2);
+    const bool operator==(const Fraction& fon2) const;
+    const bool operator==(const float& number) const;
+    friend bool operator==(const float& number, const Fraction& fon);
+
+    // operator : [=] f1 = f2
+    Fraction& operator=(const Fraction& other); 
+    Fraction& operator=(Fraction&& other) noexcept;
 
     // operator : [>] f1 > f2 / f1 > number / number > f1
-    const bool operator>(const Fraction fon2) const;
-    const bool operator>(const int number) const;
-    friend const bool operator>(const double num,const Fraction fon1);
+    const bool operator>(const Fraction& fon2) const;
+    const bool operator>(const float& number) const;
+    friend const bool operator>(const float& num,const Fraction& fon1);
 
     // operator : [>=] f1 >= f2 / f1 >= number / number >= f1
-    const bool operator>=(const Fraction fon2) const;
-    const bool operator>=(const int number) const;
-    friend const bool operator>=(const double num,const Fraction fon1);
+    const bool operator>=(const Fraction& fon2) const;
+    const bool operator>=(const float& number) const;
+    friend const bool operator>=(const float& num,const Fraction& fon1);
 
     // operator : [<] f1 < f2 / f1 < number / number < f1
-    const bool operator<(Fraction fon2) const;
-    const bool operator<(int number) const;
-    friend const bool operator<(const double num,const Fraction fon1);    
+    const bool operator<(const Fraction& fon2) const;
+    const bool operator<(const float& number) const;
+    friend const bool operator<(const float& num,const Fraction& fon1);    
 
     // operator : [<=] f1 <= f2 / f1 <= number / number <= f1
-    const bool operator<=(const Fraction fon2) const;
-    const bool operator<=(const int number) const;
-    friend const bool operator<=(const double num,const Fraction fon1);
+    const bool operator<=(const Fraction& fon2) const;
+    const bool operator<=(const float& number) const;
+    friend const bool operator<=(const float& num,const Fraction& fon1);
 
     // operator : ++ 
         // prefix
@@ -83,10 +106,14 @@ public:
 
     // IO operator : friend methods
         // <<
-    friend ostream& operator<<(ostream& output,const Fraction& fonc);
+    friend ostream& operator<<(ostream& output,const Fraction& fonc){
+        return output << fonc.numerator << "/" << fonc.denominator << " ";
+    }
         // >>
-    friend ostream& operator>>(istream& input, Fraction& fonc);
-
-
-};
+    friend istream& operator>>(istream& input, Fraction& fonc){
+        char chr = 0;
+        input >> fonc.numerator >> chr >> fonc.denominator;
+        return input;
+    }
+    };
 }
